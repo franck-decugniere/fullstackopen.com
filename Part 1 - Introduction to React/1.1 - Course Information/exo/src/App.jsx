@@ -4,7 +4,9 @@ const Header = (props) => {
 
 const Content = ({items}) => {
   return (
-    items.map((item, i) => <Part key={i} title={item.title} nbEx={item.nbEx} /> )
+    <div>
+      {items.map((item, i) => <Part key={i} title={item.title} nbEx={item.nbEx} /> )}
+    </div>
   )
 };
 
