@@ -3,11 +3,16 @@ const Header = (props) => {
 }
 
 const Content = ({items}) => {
-  const listItems = items.map((item, i) => <p key={i}>{item.title} {item.nbEx}</p>)
-  return (<>
-    {listItems}
-  </>)
+  return (
+    items.map((item, i) => <Part key={i} title={item.title} nbEx={item.nbEx} /> )
+  )
 };
+
+const Part = (props) => {
+  return (
+    <p>{props.title} {props.nbEx}</p>
+  )
+}
 
 const Total = ({ items }) => {
   return (
