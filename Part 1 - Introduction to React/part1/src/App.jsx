@@ -9,7 +9,13 @@ const App = () =>  {
   const age = 49
   console.log(now, a+b)
 
-  return (
+const people = ['Rowe', 'Prevost', 'Gare'];
+
+const peopleLis = people.map((person,i) =>
+  <li key={'person_' + i}>{person}</li>
+);
+
+  return  (
     <div>
       <Hello name='Franck' age={age}/>
       <p>It is {now.toString()}</p>
@@ -17,9 +23,12 @@ const App = () =>  {
       <p>
         {a} + {b} = {a + b}
       </p>
+      <ul>
+        {peopleLis}
+      </ul>
     </div>
-   
   )
+  
 }
 /*
 function AppFunctionDeclaration() {

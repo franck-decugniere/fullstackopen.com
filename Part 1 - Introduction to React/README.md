@@ -1,5 +1,6 @@
 [PART1](https://fullstackopen.com/en/part1) 
 
+## React/Vite project
 ```sh
 # Create a new project
 #
@@ -23,20 +24,3 @@ npm install
 npm run dev
 ```
 
-## JSX
-JSX compiled by Babel into JS
-
-```js
-return (
-    <div>
-      <p>Hello world, it is {now.toString()}</p>
-```
-=>
-```js
-return React.createElement(
-    'div',
-    null,
-    React.createElement('p',null,'Hello world, it is ', now.toString())
-    )
-      
-```
