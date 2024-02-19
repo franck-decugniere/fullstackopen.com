@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import PropTypes from 'prop-types'
 
-function App() {
-  const [count, setCount] = useState(0)
+
+// Array function (ES6) assigned to constant variable App
+const App = () =>  {
+  const now = new Date()
+  const a = 10
+  const b = 20
+  const age = 49
+  console.log(now, a+b)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+    <div>
+      <Hello name='Franck' age={age}/>
+      <p>It is {now.toString()}</p>
+      <hr/>
+      <p>
+        {a} + {b} = {a + b}
       </p>
-    </>
+    </div>
+   
   )
+}
+/*
+function AppFunctionDeclaration() {
+  return (
+    <div>Hello AppFunctionDeclaration</div>
+  )
+}
+
+const AppFunctionExpression = function() {
+   return (
+   <div>Hello AppFunctionExpression</div>
+  )
+}*/
+
+
+const Hello = (props) => {
+  console.log(props)
+  return (
+    <div>
+      <p>Hello {props.name}, you are {props.age} years old</p>
+    </div>
+  )
+}
+Hello.propTypes = {
+  name: PropTypes.string.isRequired,
+  age: PropTypes.number.isRequired
 }
 
 export default App
