@@ -1,42 +1,29 @@
-import { useState } from 'react'
 
-const Header = ({title}) => {
+const Header = ({ title }) => {
   return (<h1>{title}</h1>)
 }
 
-const Content = ({items}) => {
+const Content = ({ items }) => {
   return (
     <div>
-      {items.map((item, i) => <Part key={i} name={item.name} exercises={item.exercises} /> )}
+      {items.map((item, i) => <Part key={i} name={item.name} exercises={item.exercises} />)}
     </div>
   )
 };
 
-const Part = ({name, exercises}) => {
+const Part = ({ name, exercises }) => {
   return (
     <p>{name} {exercises}</p>
   )
 }
 
-const Total = ({items}) => {
+const Total = ({ items }) => {
   return (
     <p>Number of exercises {items.map(item => item.exercises).reduce((acc, nb) => acc + nb)}</p>
   )
 }
 
-const Counter = ({ initialValue }) => {
-  const [counter, setCounter] = useState(initialValue)
-  // counter : state variable to retain data between renders
-  // setCounter : update state variable & trigger React to re-render the component
-  setTimeout(
-    () => setCounter(counter + 1),
-    1000
-  )
-  console.log('rendering...', counter)
-  return (
-    <div>{counter}</div>
-  )
-}
+
 
 
 const App = () => {
@@ -60,10 +47,10 @@ const App = () => {
 
   return (
     <div>
-      <Header title={course.name}/>
-      <Content items={course.parts}/>
+      <Header title={course.name} />
+      <Content items={course.parts} />
       <Total items={course.parts} />
-      <Counter initialValue={0}/>
+
     </div>
   )
 }

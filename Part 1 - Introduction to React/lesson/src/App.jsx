@@ -1,34 +1,40 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
+
 
 
 // Array function (ES6) assigned to constant variable App
-const App = () =>  {
+const App = () => {
   const now = new Date()
   const a = 10
   const b = 20
   const age = 49
-  console.log(now, a+b)
+  console.log(now, a + b)
 
-const people = ['Rowe', 'Prevost', 'Gare'];
+  const people = ['Rowe', 'Prevost', 'Gare'];
 
-const peopleLis = people.map((person,i) =>
-  <li key={'person_' + i}>{person}</li>
-);
+  const peopleLis = people.map((person, i) =>
+    <li key={'person_' + i}>{person}</li>
+  );
 
-  return  (
+  return (
     <div>
-      <Hello name='Franck' age={age}/>
+      <Hello name='Franck' age={age} />
+      <hr />
       <p>It is {now.toString()}</p>
-      <hr/>
       <p>
         {a} + {b} = {a + b}
       </p>
       <ul>
         {peopleLis}
       </ul>
+      <hr />
+      <Counter initialValue={0} />
+      <hr />
+      <EventHandling />
     </div>
   )
-  
+
 }
 /*
 function AppFunctionDeclaration() {
@@ -51,12 +57,43 @@ const Hello = ({ name, age }) => {
       <p>Hello {name}, you are {age} years old</p>
       <p>So you were probably born in {bornYear()}</p>
     </div>
-       
+
   )
 }
 Hello.propTypes = {
   name: PropTypes.string.isRequired,
   age: PropTypes.number.isRequired
+}
+
+const Counter = ({ initialValue }) => {
+  const [counter, setCounter] = useState(initialValue)
+  // counter : state variable to retain data between renders
+  // setCounter : update state variable & trigger React to re-render the component
+  setTimeout(
+    () => setCounter(counter + 1),
+    1000
+  )
+  return (
+    <div>{counter}</div>
+  )
+}
+
+const EventHandling = () => {
+  const [counter, setCounter] = useState(0)
+  const increaseByOne = () => setCounter(counter + 1)
+  const setToZero = () => setCounter(0)
+
+  return (
+    <div>
+      <div>{counter}</div>
+      <button onClick={increaseByOne}>
+        Plus
+      </button>
+      <button onClick={setToZero}>
+        Reset
+      </button>
+    </div>
+  )
 }
 
 export default App
