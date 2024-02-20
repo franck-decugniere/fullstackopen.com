@@ -1,5 +1,5 @@
-const Header = (props) => {
-  return (<h1>{props.title}</h1>)
+const Header = ({title}) => {
+  return (<h1>{title}</h1>)
 }
 
 const Content = ({items}) => {
@@ -10,9 +10,9 @@ const Content = ({items}) => {
   )
 };
 
-const Part = (props) => {
+const Part = ({name, exercises}) => {
   return (
-    <p>{props.name} {props.exercises}</p>
+    <p>{name} {exercises}</p>
   )
 }
 
