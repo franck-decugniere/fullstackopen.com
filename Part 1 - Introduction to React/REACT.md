@@ -41,10 +41,22 @@ import { useState } from 'react'
 const App = () => {
   const [ counter, setCounter ] = useState(0)
   const increaseByOne = () => setCounter(counter + 1)
+  
   return (
     <button onClick={increaseByOne}>plus</button>
     <div>{counter}</div>
   )
 }
+```
+
+## Complex state
+> [!WARNING]  
+> When setting state (`Object`,`Arrays`,..), a **new value** must be passed (no render if oldState === newState)
+
+```js
+  const [clicks, setClicks] = useState({
+    left: 0, right: 0
+  })
+  const handleLeftClick = () => setClicks({ ...clicks, left: clicks.left + 1 })
 ```
 

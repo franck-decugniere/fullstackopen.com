@@ -3,9 +3,8 @@ import { useState } from 'react';
 
 const AppD = () => {
   const [clicks, setClicks] = useState({ left: 0, right: 0 });
-
   const handleLeftClick = () => setClicks({ ...clicks, left: clicks.left + 1 })
-  const handleLRightClick = () => setClicks({ ...clicks, right: clicks.right + 1 })
+  const handleRightClick = () => setClicks({ ...clicks, right: clicks.right + 1 })
   
     return (
       <div>
@@ -13,7 +12,7 @@ const AppD = () => {
         <button onClick={handleLeftClick}>
           left
         </button>
-        <button onClick={handleLRightClick}>
+        <button onClick={handleRightClick}>
           right
         </button>
         {clicks.right}
