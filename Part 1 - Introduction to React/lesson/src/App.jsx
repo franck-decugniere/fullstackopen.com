@@ -85,14 +85,26 @@ const EventHandling = () => {
 
   return (
     <div>
-      <div>{counter}</div>
-      <button onClick={increaseByOne}>
-        Plus
-      </button>
-      <button onClick={setToZero}>
-        Reset
-      </button>
+
+
+      <Button text='Plus' onClick={increaseByOne} />
+      <Button text='Reset' onClick={setToZero} />
+      <DisplayCounter counter={counter} />
     </div>
+  )
+}
+
+const DisplayCounter = (props) => {
+  return (
+    <div>{props.counter}</div>
+  )
+}
+
+const Button = (props) => {
+  return (
+    <button onClick={props.onClick}>
+      {props.text}
+    </button>
   )
 }
 
