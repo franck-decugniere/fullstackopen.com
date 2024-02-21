@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 
-
+/*
+Application life-cycle:
+- App is executed
+- Uses useState hook to create the application state
+- On button click, event handler changes the state and causes the component (and child) to re-render
+*/
 
 // Array function (ES6) assigned to constant variable App
 const App = () => {
@@ -9,7 +14,7 @@ const App = () => {
   const a = 10
   const b = 20
   const age = 49
-  console.log(now, a + b)
+  console.log("App render")
 
   const people = ['Rowe', 'Prevost', 'Gare'];
 
@@ -66,6 +71,7 @@ Hello.propTypes = {
 }
 
 const Counter = ({ initialValue }) => {
+  console.log("Counter render")
   const [counter, setCounter] = useState(initialValue)
   // counter : state variable to retain data between renders
   // setCounter : update state variable & trigger React to re-render the component
@@ -79,33 +85,28 @@ const Counter = ({ initialValue }) => {
 }
 
 const EventHandling = () => {
+  console.log("EventHandling render")
   const [counter, setCounter] = useState(0)
   const increaseByOne = () => setCounter(counter + 1)
+  const decreaseByOne = () => setCounter(counter - 1)
   const setToZero = () => setCounter(0)
 
   return (
     <div>
-
-
       <Button text='Plus' onClick={increaseByOne} />
+      <Button text='Minus' onClick={decreaseByOne} />
       <Button text='Reset' onClick={setToZero} />
-      <DisplayCounter counter={counter} />
+      <Display counter={counter} />
     </div>
   )
 }
 
-const DisplayCounter = (props) => {
-  return (
-    <div>{props.counter}</div>
-  )
-}
-
-const Button = (props) => {
-  return (
-    <button onClick={props.onClick}>
-      {props.text}
+const Display = ({ counter }) =>
+  <div>{counter}</div>
+  
+const Button = ({ onClick, text }) =>
+    <button onClick={onClick}>
+      {text}
     </button>
-  )
-}
 
 export default App
