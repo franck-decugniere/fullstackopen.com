@@ -28,3 +28,32 @@ const App = ({notes}) => {
 ></ul>
 > ```
 
+[PART2/Forms](https://fullstackopen.com/en/part2/forms)
+# Access data from form
+
+## Controlled component
+Control an input with a state variable
+```js
+ const [firstName, setFirstName] = useState(''); 
+  return (
+    <input
+      value={firstName} // ...force the input's value to match the state variable...
+      onChange={e => setFirstName(e.target.value)} // ... and update the state variable on any edits!
+    />
+  )
+```
+
+```js
+// ✅ Good: uncontrolled input with an initial value
+<input defaultValue={something} />
+
+// ✅ Good: controlled input with onChange
+<input value={something} onChange={e => setSomething(e.target.value)} />
+
+// ✅ Good: readonly controlled input without on change
+<input value={something} readOnly={true} />
+
+// 🔴 Bug: controlled checkbox with no onChange handler
+<input type="checkbox" checked={something} />
+```
+
