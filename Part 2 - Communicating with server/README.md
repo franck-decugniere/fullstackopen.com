@@ -57,3 +57,6 @@ Control an input with a state variable
 <input type="checkbox" checked={something} />
 ```
 
+
+[PART2/Getting data from server](https://fullstackopen.com/en/part2/getting_data_from_server)
+#
