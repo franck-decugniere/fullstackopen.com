@@ -46,7 +46,12 @@ const App = () => {
   }
 
   const retrievePhonebook = () => {
-    phoneBookService.getAll().then(response => setPersons(response))
+    const loadData = async () => {
+      const result = await phoneBookService.getAll()
+      setPersons(result)
+    }
+    loadData()
+    //phoneBookService.getAll().then(response => setPersons(response))
   }
 
   useEffect(retrievePhonebook, [])

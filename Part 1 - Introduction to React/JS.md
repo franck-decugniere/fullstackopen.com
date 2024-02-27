@@ -168,25 +168,59 @@ adam.greet(); // hello, my name is Adam
 
 `Promise` is an object representing the eventuial completion or failure of an asynchronous operation
 
+### Using `then()`
 ```javascript
-// 1. Create a Promise to fetch the water
-let promise = new Promise(function(resolve, reject) {
- // Pretend a delay of 2 sec to fetch it!
-  setTimeout(function() {
-      // Fetched the water. Let's resolve the promise
-      resolve('Hurray! Fetched the Water.');
-  }, 2000);
-});
-
-// 2. Function to Set up the handler to handle a promise result.
-// It is to inform the grandparents when the result is available.
-const grandParentsCooking = () => {
-  // The handler function to handle the resolved promise
-  promise.then(function(result) {
-    // Fetched the water. Now grandparents can start the cooking
-    console.log(`cooking rice with the ${result}`);
+let executePromiseAndShowResult = () => {
+  // 1. Define Promise
+  let promise = new Promise(function (resolve, reject) {
+    // "Executor" - executed when Promise is created (so right now)
+    setTimeout(function () {
+      if (Math.random() < 0.8) {
+        resolve("Tache terminée avec succès");
+      } else {
+        reject("Tache terminée avec erreur");
+      }
+    }, 300);
   });
+
+  // 2. Function to Set up the handler to handle a promise result.
+  const handlePromise = () => {
+    promise.then(
+      result =>  console.log("I>", result),
+      error => console.log("E>", error)
+    );
+  };
+
+  // 3. Calling the function to activate the set up.
+  handlePromise();
+};
+executePromiseAndShowResult();
+```
+
+### Using `async/await)`
+```javascript
+async function executePromiseAndShowResult() { 
+  // Define promise
+  let promise = new Promise(function(resolve, reject) {
+    setTimeout(function() {
+      if (Math.random()<.8) {
+        // Tache terminée avec succès
+        resolve('Tache terminée avec succès');
+      } else {
+        // Tache terminée avec erreur
+        reject('Tache terminée avec erreur');
+      }
+  }, 300);
+  });
+
+  // Call promise
+  try {
+    let result = await promise
+    console.log("I>", result)
+  } catch (err) {
+    console.log("E>", err)
+  }
+  
 }
 
-// 3. Calling the function to activate the set up.
-grandParentsCooking();
+```
