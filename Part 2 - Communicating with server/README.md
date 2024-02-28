@@ -144,11 +144,15 @@ const promise = axios.get('http://localhost:3001/notes')
 
 [PART2/CSS Style](https://fullstackopen.com/en/part2/adding_styles_to_react_app)
 
+## CSS
 Different way to add style
 - css file
 - CSS preprocessor 
-- inline style
+- inline style (some limitations with pseudo-classes)
 
 https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics
 https://developer.mozilla.org/en-US/docs/Glossary/CSS_preprocessor
+
+>[!IMPORTANT] React philosophy
+A component defines the HTML + JS + CSS
 

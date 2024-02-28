@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import noteService from './services/notes'
 import Note from './components/Note'
 import Notification from './components/Notification'
+import { Footer } from './components/Footer'
 
 const App = () => {
 
@@ -95,7 +96,7 @@ const App = () => {
           />
         )}
       </ul>
-
+      <Footer />
     </div>
   )
 }
