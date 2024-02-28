@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 
 import { Filter } from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 import phoneBookService from './services/phonebook'
 
 const App = () => {
@@ -11,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState(null)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -21,18 +22,31 @@ const App = () => {
     setNewNumber('')
   }
 
-  const handleDelete = (person) => {
+  const deletePerson = (person) => {
     const confirmDelete = window.confirm(`Delete ${person.name} ?`)
     confirmDelete &&
       phoneBookService
         .deletePerson(person.id)
-        .then(deletedPerson => setPersons(persons.filter(v => v.id !== deletedPerson.id)))
+      .then(deletedPerson => setPersons(persons.filter(v => v.id !== deletedPerson.id)))
+      .catch( () => handleDeleteError(person) )
+  }
+
+  const handleDeleteError = (person) => {
+    showMessage({ text: `Information of ${person.name} has already been removed from server` , level: 'error' })
+    
   }
 
   const addPerson = () => {
     phoneBookService
       .create({ 'name': newName, 'number': newNumber })
       .then(newPerson => setPersons(persons.concat(newPerson)))
+      .then(showMessage({ text: `Added  ${newName}`, level: 'info' }))
+  }
+
+  const showMessage = (message) => {
+    setNotificationMessage(message);
+    setTimeout(() => setNotificationMessage(null), 2000)
+
   }
 
   const updatePerson = () => {
@@ -42,6 +56,7 @@ const App = () => {
       confirmUpdate && phoneBookService
         .updatePerson(updatedPerson)
         .then(setPersons(persons.map(person => person.id === updatedPerson.id ? updatedPerson : person)))
+        .then(showMessage({ text: `Updated  ${newName}`, level: 'info' }))
     }
   }
 
@@ -59,7 +74,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-
+      <Notification message={notificationMessage} />
       {persons.length > 0 && <Filter value={newFilter} updateFilter={() => setNewFilter(event.target.value)} />}
 
       <h2>Add a new</h2>
@@ -71,7 +86,7 @@ const App = () => {
         handleSubmit={handleSubmit} />
 
       {persons.length > 0 && <h2>Numbers</h2>}
-      <Persons newFilter={newFilter} persons={persons} handleDelete={handleDelete} />
+      <Persons newFilter={newFilter} persons={persons} handleDelete={deletePerson} />
 
       <hr />
       <h2>State debug</h2>
