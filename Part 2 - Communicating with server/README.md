@@ -142,6 +142,13 @@ const promise = axios.get('http://localhost:3001/notes')
 2. Specify the Effect dependencies - should the Effect run after every render ?
 3. Add cleanup (if needed) - if Effect "connect", it may need "disconnect"
 
+```javascript
+useEffect( () => {....}, [])
+// Effect will be called :
+// - after the 1st render
+// - when the 2nd parameter changes
+```
+
 [PART2/CSS Style](https://fullstackopen.com/en/part2/adding_styles_to_react_app)
 
 ## CSS
