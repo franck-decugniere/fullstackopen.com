@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Country from "./Country"
 
 const CountryList = ({ allCountries, maxItems }) => {
     const nbItem = allCountries.length
@@ -7,14 +8,15 @@ const CountryList = ({ allCountries, maxItems }) => {
 
     useEffect(() => setShowCountry(null), [allCountries])
     
-    console.log("CountryList", allCountries)
+    // console.log("CountryList", allCountries)
+
     if (showCountry) {
-        console.log("Show country", showCountry)
+        // console.log("Show country", showCountry)
         return (<Country country={showCountry}/>)
     }
 
     if (nbItem == 1) {
-        console.log(allCountries[0])
+        // console.log(allCountries[0])
          return (<Country country={allCountries[0]}/>)
     }
 
@@ -35,23 +37,6 @@ const CountryList = ({ allCountries, maxItems }) => {
                 })
             }
         </>
-    )
-}
-
-const Country = ({ country }) => {
-    console.log("Country", country)
-    return (<>
-        <h1>{country.name.common}</h1>
-        <p>Capital {country.capital}</p>
-        <p>Area {country.area}</p>
-        <h2>Languages:</h2>
-        <ul>
-            {Object.values(country.languages).map(language => {
-                return <li key={language}>{language}</li>
-            })}
-        </ul>
-        <img src={country.flags.png} />
-    </>
     )
 }
 
