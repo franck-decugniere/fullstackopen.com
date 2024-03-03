@@ -1,0 +1,20 @@
+GET  http://localhost:3001/info
+###
+GET  http://localhost:3001/api/persons
+###
+GET  http://localhost:3001/api/persons/1
+###
+GET  http://localhost:3001/api/persons/10000
+###
+DELETE http://localhost:3001/api/persons/2
+###
+DELETE http://localhost:3001/api/persons/10000
+
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+ "name": "Franck3",
+ "number": "39-44-5323523"
+}
