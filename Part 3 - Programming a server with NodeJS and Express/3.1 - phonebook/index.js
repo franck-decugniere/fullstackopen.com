@@ -1,6 +1,22 @@
-const express = require("express");
+const express = require('express')
 const app = express();
 app.use(express.json()); // json middleware that parse raw json into js object & assign it to request.body
+
+const morgan = require("morgan")
+app.use(
+  morgan(function (tokens, req, res) {
+    return [
+      tokens.method(req, res),
+      tokens.url(req, res),
+      tokens.status(req, res),
+      tokens.res(req, res, "content-length"),
+      "-",
+      tokens["response-time"](req, res),
+      "ms",
+      JSON.stringify(req.body),
+    ].join(" ");
+  })
+);
 
 // Create custom middleware
 const requestLogger = (request, response, next) => {
@@ -11,7 +27,7 @@ const requestLogger = (request, response, next) => {
   next();
 };
 
-app.use(requestLogger);
+//app.use(requestLogger);
 
 let phonebook = [
   {
