@@ -1,8 +1,9 @@
 const express = require('express')
+const morgan = require("morgan");
+
 const app = express();
 app.use(express.json()); // json middleware that parse raw json into js object & assign it to request.body
 
-const morgan = require("morgan")
 app.use(
   morgan(function (tokens, req, res) {
     return [
@@ -109,7 +110,7 @@ const generateId = () => {
   return Math.round(Math.random() * 1000);
 };
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
