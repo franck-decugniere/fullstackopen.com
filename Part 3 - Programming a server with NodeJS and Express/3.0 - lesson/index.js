@@ -66,6 +66,13 @@ app.post("/api/notes", (request, response) => {
   response.json(note);
 });
 
+app.put("/api/notes/:id", (request, response) =>  {
+  const id = Number(request.params.id);
+  const note = request.body;
+  notes = notes.map( n => n.id === id ? note : n)
+  response.json(note)
+})
+
 const generateId = () => {
   const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
   return maxId + 1;
