@@ -3,6 +3,7 @@ const morgan = require("morgan");
 
 const app = express();
 app.use(express.json()); // json middleware that parse raw json into js object & assign it to request.body
+app.use(express.static('webapp')) // enable static content
 
 app.use(
   morgan(function (tokens, req, res) {

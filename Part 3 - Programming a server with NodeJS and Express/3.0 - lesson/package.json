@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "build:ui" : "rm -rf webapp && cd '../../Part 2 - Communicating with server/2.0 - lesson' && npm run build && cp -r dist '../../Part 3 - Programming a server with NodeJS and Express/3.0 - lesson/webapp'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Franck",
