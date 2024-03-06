@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require("cors");
 const mongoose = require("mongoose")
 
-const password = process.argv[2]
+const password = process.env.MONGODB_PASSWORD
 
 console.log(password)
 
