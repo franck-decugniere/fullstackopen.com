@@ -65,3 +65,12 @@ npm run dev
 |notes/10|	`PUT`|	replaces the entire identified resource with the request data|
 |notes/10|	`PATCH`|	replaces a part of the identified resource with the request data|
 
+# MongoDB
+Document database (NoSQL)
+
+[MongoDB Atlas - database on Cloud](https://www.mongodb.com/atlas/database)
+
+```sh
+# Object Document Mapper for MongoDB
+npm install mongoose
+``` 

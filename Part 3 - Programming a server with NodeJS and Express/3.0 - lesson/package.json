@@ -4,17 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "debug": "nodemon --inspect index.js",
-    "build:ui" : "rm -rf webapp && cd '../../Part 2 - Communicating with server/2.0 - lesson' && npm run build && cp -r dist '../../Part 3 - Programming a server with NodeJS and Express/3.0 - lesson/webapp'",
+    "prestart": "export PASSWORD=`grep password secret.md |cut -d':' -f2`",
+    "start": "node index.js $PASSWORD",
+    "dev": "nodemon index.js $MONGODB_PASSWORD",
+    "debug": "nodemon --inspect index.js $MONGODB_PASSWORD",
+    "build:ui": "rm -rf webapp && cd '../../Part 2 - Communicating with server/2.0 - lesson' && npm run build && cp -r dist '../../Part 3 - Programming a server with NodeJS and Express/3.0 - lesson/webapp'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Franck",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.3"
+    "express": "^4.18.3",
+    "mongoose": "^8.2.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

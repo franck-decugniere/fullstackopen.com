@@ -1,5 +1,10 @@
 const express = require('express')
 const cors = require("cors");
+const mongoose = require("mongoose")
+
+const password = process.argv[2]
+
+console.log(password)
 
 const app = express()
 app.use(express.json())
