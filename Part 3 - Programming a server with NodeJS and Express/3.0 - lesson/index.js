@@ -1,5 +1,5 @@
 const express = require('express')
-const cors = require("cors")
+const cors = require('cors')
 const Note = require('./models/note')
 
 const app = express()
@@ -17,16 +17,19 @@ app.get("/api/notes", (request, response) => {
   })
 });
 
-app.get("/api/notes/:id", (request, response) => {
+app.get("/api/notes/:id", (request, response, next) => {
   console.log(request.params.id)
-  Note.find({ _id: request.params.id }).then(notes => {
+  Note.findById(request.params.id).then(notes => {
     // better use Note.findById(request.params.id)
     console.log(notes)
-    notes.length > 0 ? response.json(notes) : response.status(404).end()
-
+    if (notes) {
+      response.json(notes)
+    } else {
+      response.status(404).end()
+    }
   }).catch(error => {
-    console.log("", error)
-    response.status(500).json({ error: error })
+    // Pass error to next Express middleware
+    next(error)
   })
 })
 
@@ -61,6 +64,20 @@ app.put("/api/notes/:id", (request, response) => {
     }
   )
 })
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  // CastError : invalid object id for MongoDB
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  } 
+
+  next(error)
+}
+
+// this has to be the last loaded middleware, also all the routes should be registered before this!
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
