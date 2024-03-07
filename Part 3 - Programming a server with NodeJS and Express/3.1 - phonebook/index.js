@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require("morgan");
+const Person = require("./models/person")
 
 const app = express();
 app.use(express.json()); // json middleware that parse raw json into js object & assign it to request.body
@@ -54,30 +55,52 @@ let phonebook = [
   },
 ];
 
-app.get("/info", (request, response) => {
-  let responseHtml = `<p>Phonebook has info for ${phonebook.length} people</p>`;
+app.get("/info", async (request, response) => {
+  console.log("before await", new Date())
+  const persons = await Person.find()
+  console.log("after await", new Date(), persons)
+  let responseHtml = `<p>Phonebook has info for ${persons.length} people</p>`;
   responseHtml += new Date();
   response.send(responseHtml);
+  /*
+  Person.find({}).then(persons => {
+    console.log(persons)
+    let responseHtml = `<p>Phonebook has info for ${persons.length} people</p>`;
+    responseHtml += new Date();
+    response.send(responseHtml);
+  })
+  */
 });
 
 app.get("/api/persons", (request, response) => {
-  response.json(phonebook);
+  Person.find({}).then(persons => response.json(persons))
 });
 
 app.get("/api/persons/:id", (request, response) => {
-  const id = Number(request.params.id);
-  const person = phonebook.find((person) => person.id === id);
-  if (person) {
-    response.json(person);
-  } else {
-    response.status(404).end();
-  }
+  Person.findById(request.params.id)
+    .then(person => {
+      console.log(person)
+      if (person) {
+        response.json(person)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => {
+      console.log(error)
+      response.status(500).json({ error: error })
+    })
+
 });
 
 app.delete("/api/persons/:id", (request, response) => {
-  const id = Number(request.params.id);
-  phonebook = phonebook.filter((person) => person.id !== id);
-  response.status(204).end();
+  const id = request.params.id;
+  Person.findByIdAndDelete(id)
+    .then(person => {
+      console.log(person)
+      response.status(204).end();
+    })
+    .catch(error => console.log(error))
 });
 
 app.post("/api/persons", (request, response) => {
