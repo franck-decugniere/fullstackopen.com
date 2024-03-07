@@ -33,11 +33,13 @@ app.get("/api/notes/:id", (request, response, next) => {
   })
 })
 
-app.delete("/api/notes/:id", (request, response) => {
-  Note.findByIdAndDelete(request.params.id).then(result => {
-    console.log(result)
-    response.status(204).end();
-  })
+app.delete("/api/notes/:id", (request, response, next) => {
+  Note.findByIdAndDelete(request.params.id)
+    .then(result => {
+      console.log(result)
+      response.status(204).end();
+    })
+    .catch(error => next(error))
 });
 
 app.post("/api/notes", (request, response) => {
@@ -56,13 +58,13 @@ app.post("/api/notes", (request, response) => {
   })
 });
 
-app.put("/api/notes/:id", (request, response) => {
-  Note.findByIdAndUpdate(request.params.id, request.body).then(
-    result => {
-      console.log(result)
-      response.json(request.body)
-    }
-  )
+app.put("/api/notes/:id", (request, response, next) => {
+  Note.findByIdAndUpdate(request.params.id, request.body)
+    .then(result => {
+        response.json(result)
+      }
+    )
+    .catch(error => next(error))
 })
 
 const errorHandler = (error, request, response, next) => {
@@ -71,7 +73,7 @@ const errorHandler = (error, request, response, next) => {
   // CastError : invalid object id for MongoDB
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } 
+  }
 
   next(error)
 }
