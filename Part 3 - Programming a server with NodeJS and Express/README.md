@@ -126,14 +126,14 @@ node_modules/.bin/nodemon index.js
 npm run dev
 ```
 # REST
-|URL|verb|functionality|
-|-|-|-|
-|notes/10|	`GET`	|fetches a single resource|
-|notes	|`GET`|	fetches all resources in the collection|
-|notes|	`POST`|	creates a new resource based on the request data|
-|notes/10|	`DELETE`|	removes the identified resource|
-|notes/10|	`PUT`|	replaces the entire identified resource with the request data|
-|notes/10|	`PATCH`|	replaces a part of the identified resource with the request data|
+| URL      | verb     | functionality                                                    |
+| -------- | -------- | ---------------------------------------------------------------- |
+| notes/10 | `GET`    | fetches a single resource                                        |
+| notes    | `GET`    | fetches all resources in the collection                          |
+| notes    | `POST`   | creates a new resource based on the request data                 |
+| notes/10 | `DELETE` | removes the identified resource                                  |
+| notes/10 | `PUT`    | replaces the entire identified resource with the request data    |
+| notes/10 | `PATCH`  | replaces a part of the identified resource with the request data |
 
 # MongoDB
 Document database (NoSQL)
@@ -145,3 +145,49 @@ Document database (NoSQL)
 # Object Document Mapper for MongoDB
 npm install mongoose
 ``` 
+
+### Schema
+Each `Schema` maps to a MongoDB `collection` and defines the shape of a `document` within the collection.
+
+```js
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+
+const blogSchema = new Schema({
+  title: String, // String is shorthand for {type: String}
+  author: String,
+  body: String,
+  comments: [{ body: String, date: Date }],
+  date: { type: Date, default: Date.now },
+  hidden: Boolean,
+  meta: {
+    votes: Number,
+    favs: Number
+  }
+});
+```
+
+### Model
+`Model` is responsible for creating and reading documents from the MongoDB database. There are compiled from `Schema`definitions.
+
+```js
+// CREATE DOCUMENT
+const Blog = mongoose.model('Blog', blogSchema);
+const myBlog = new Blog({....})
+await myBlog.save() // save document to MongoDB
+// or
+await Blog.create({....})
+```
+
+```js
+// READ DOCUMENT
+await Blog.find({ author: 'Franck'}).where('date').gt(oneYearAgo).exec()
+```
+
+```js
+// DELETE DOCUMENT
+await Blog.deleteOne({....})
+```
+
+### Document
+`Document`is an instance of its model. It's a 1-to-1 mapping to documents stored in MongoDB.
