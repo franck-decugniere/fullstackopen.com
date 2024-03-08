@@ -1,3 +1,5 @@
+### Require REST client VSCODE extension
+
 GET  http://localhost:3001/info
 ###
 GET  http://localhost:3001/api/persons

@@ -1,3 +1,5 @@
+### Require REST client VSCODE extension
+
 ### Get all notes
 GET http://localhost:3001/api/notes
 
@@ -25,12 +27,30 @@ content-type: application/json
 
 { "content": "not important"}
 
+### Create invalid note
+POST http://localhost:3001/api/notes
+content-type: application/json
+
+{
+    "content": "test",
+    "important": true
+}
+
 ### Update note
 PUT http://localhost:3001/api/notes/65e89a3220fe34b72c47d515
 content-type: application/json
 
 {
-    "content": "HTML is super easy ",
+    "content": "HTML is super easy",
+    "important": true
+}
+
+### Update note (invalid content)
+PUT http://localhost:3001/api/notes/65e89a3220fe34b72c47d515
+content-type: application/json
+
+{
+    "content": "HTML",
     "important": true
 }
 
