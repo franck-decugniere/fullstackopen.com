@@ -11,8 +11,22 @@ mongoose.connect(url).then(
 )
 
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: String,
+    name: {
+        type: String,
+        minLength: 5,
+        required: true
+    },
+    number: {
+        type: String,
+        minLength: 8,
+        validate: {
+            validator: function (v) {
+                return /^\d{2,3}-\d+$/.test(v);
+            },
+            message: props => `${props.value} is not a valid phone number!`
+        },
+        required: [true, 'User phone number is required']
+    }
 })
 
 // Transform object to JSON in order to remove MongoDB specific elements and add an id
@@ -27,4 +41,4 @@ personSchema.set('toJSON', {
 
 
 // Public interface of the module is the Note model
-module.exports = mongoose.model('Person', personSchema,'people')
+module.exports = mongoose.model('Person', personSchema, 'people')

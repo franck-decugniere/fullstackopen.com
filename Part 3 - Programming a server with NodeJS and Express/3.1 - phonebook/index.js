@@ -68,13 +68,8 @@ app.delete("/api/persons/:id", async (request, response, next) => {
   }
 });
 
-app.post("/api/persons", async (request, response) => {
+app.post("/api/persons", async (request, response, next) => {
   const body = request.body;
-  if (!body.name || !body.number) {
-    return response.status(400).json({
-      error: "content missing",
-    });
-  }
   const count = await Person.countDocuments({ name: body.name })
   console.log(count)
   if (count > 0) {
@@ -84,15 +79,19 @@ app.post("/api/persons", async (request, response) => {
       name: body.name,
       number: body.number
     })
-    const returnedPerson = await person.save()
-    response.json(returnedPerson);
+    try {
+      const returnedPerson = await person.save()
+      response.json(returnedPerson);
+    } catch (error) {
+      next(error)
+    }
   }
 })
 
 app.put("/api/persons/:id", async (request, response, next) => {
   const id = request.params.id
   try {
-    const person = await Person.findByIdAndUpdate(id, request.body)
+    const person = await Person.findByIdAndUpdate(id, request.body, { runValidators: true })
     response.json(person)
   } catch (error) {
     next(error)
@@ -112,6 +111,9 @@ const errorHandler = (error, request, response, next) => {
   // CastError : invalid object id for MongoDB
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).send({ error: error.message })
+
   }
 
   next(error)

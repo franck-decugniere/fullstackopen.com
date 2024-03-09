@@ -24,4 +24,4 @@ const updatePerson = async (updatedPerson) => {
     return response.data
 }
 
-export default { getAll, create, deletePerson, updatePerson};
+export default { getAll, create, deletePerson, updatePerson }

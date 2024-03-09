@@ -1,5 +1,3 @@
-import React from 'react'
-
 const PersonForm = ({ newName, handleNewName, newNumber, handleNewNumber, handleSubmit}) => {
   return (
       <form id='personForm'>
