@@ -191,3 +191,23 @@ await Blog.deleteOne({....})
 
 ### Document
 `Document`is an instance of its model. It's a 1-to-1 mapping to documents stored in MongoDB.
+
+# Lint
+```sh
+# Install ESLint as dev dep
+npm install eslint --save-dev
+
+# Configure ESlint
+npm init @eslint/config
+or
+npx eslint --init
+
+# Install plugin
+to check if needed
+
+# Apply lint
+npx eslint index.js
+
+# ignore some files
+cat .eslintignore
+webapp 
