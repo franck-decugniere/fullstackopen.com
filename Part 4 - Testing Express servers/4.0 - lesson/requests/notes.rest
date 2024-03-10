@@ -1,0 +1,58 @@
+### Require REST client VSCODE extension
+
+### Get all notes
+GET http://localhost:3001/api/notes
+
+### Get one note
+GET http://localhost:3001/api/notes/65e89a3220fe34b72c47d515
+
+### Get unknown note
+GET http://localhost:3001/api/notes/15e897d8de77279da8ca92a3
+
+### Get unknown note (invalid id)
+GET http://localhost:3001/api/notes/15
+
+### Create note
+POST http://localhost:3001/api/notes
+content-type: application/json
+
+{
+    "content": "HTML is easy",
+    "important": true
+}
+
+### Create not important note
+POST http://localhost:3001/api/notes
+content-type: application/json
+
+{ "content": "not important"}
+
+### Create invalid note
+POST http://localhost:3001/api/notes
+content-type: application/json
+
+{
+    "content": "test",
+    "important": true
+}
+
+### Update note
+PUT http://localhost:3001/api/notes/65e89a3220fe34b72c47d515
+content-type: application/json
+
+{
+    "content": "HTML is super easy",
+    "important": true
+}
+
+### Update note (invalid content)
+PUT http://localhost:3001/api/notes/65e89a3220fe34b72c47d515
+content-type: application/json
+
+{
+    "content": "HTML",
+    "important": true
+}
+
+### Delete note
+DELETE http://localhost:3001/api/notes/65e897d8de77279da8ca92a3
