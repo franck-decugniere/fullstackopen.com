@@ -1,4 +1,7 @@
 module.exports = {
+  'plugins': [
+    '@stylistic/js'
+  ],
   'env': {
     'commonjs': true,
     'es2021': true,
@@ -22,21 +25,13 @@ module.exports = {
     'ecmaVersion': 'latest'
   },
   'rules': {
-    'indent': [
-      'error',
-      2
-    ],
-    'linebreak-style': [
-      'error',
-      'unix'
-    ],
-    'quotes': [
-      'error',
-      'single'
-    ],
-    'semi': [
-      'error',
-      'never'
-    ]
+    'eqeqeq': 'error',
+    '@stylistic/js/no-trailing-spaces': 'error',
+    '@stylistic/js/object-curly-spacing': ['error', 'always'],
+    '@stylistic/js/arrow-spacing': ['error', { 'before': true, 'after': true }],
+    '@stylistic/js/indent': ['error', 2],
+    '@stylistic/js/linebreak-style': ['error', 'unix'],
+    '@stylistic/js/quotes': ['error', 'single'],
+    '@stylistic/js/semi': ['error', 'never']
   }
 }
