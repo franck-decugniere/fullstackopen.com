@@ -1,0 +1,15 @@
+### Require REST client VSCODE extension
+
+### Get all blog entries
+GET http://localhost:3003/api/blogs
+
+### Create entry
+POST http://localhost:3003/api/blogs
+content-type: application/json
+
+{
+ "title": "Today's news",
+  "author": "Franck",
+  "url": "https://www.google.fr",
+  "likes": 16
+}
