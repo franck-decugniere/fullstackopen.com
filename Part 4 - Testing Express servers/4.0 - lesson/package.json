@@ -8,7 +8,7 @@
     "dev": "nodemon --env-file=.env.mongodb index.js",
     "debug": "nodemon --env-file=.env.mongodb --inspect index.js",
     "build:ui": "rm -rf webapp && cd '../../Part 2 - Communicating with server/2.0 - lesson' && npm run build && cp -r dist '../../Part 4 - Testing Express servers/4.0 - lesson/webapp'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
   "author": "Franck",
   "license": "MIT",
