@@ -8,8 +8,8 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
- "title": "Today's news",
+ "title": "Today's news bis",
   "author": "Franck",
   "url": "https://www.google.fr",
-  "likes": 16
+  "likes": 1
 }
